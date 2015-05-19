@@ -28,13 +28,13 @@
 
 Language is a powerful tool that allows us to describe not only the state of the world as we see it, but also the world as it is not. Nevertheless, for human language users, processing negation is often slow and effortful. Deciding the truth value of a sentence like ``star isn't above plus'' takes a lot longer than making the same decision about a positive sentence \cite{hclark1972, carpenter1975, just1971, just1976}. And in language comprehension tasks as well, participants often show evidence consistent with having processed the positive components of a sentence prior to negating them, suggesting again that negation is slow \cite{kaup2003, kaup2006, hasson2006, fischler1983, ludtke2008}. 
 
-Yet not all negations are equally felicitous. For example, it would be strange for a barista to greet a customer by saying ``we don't have any chai''---unless he was talking to a regular who always ordered chai. On Gricean and neo-Gricean accounts of the pragmatics of language use in context, listeners expect speakers to produce informative, relevant, and true utterances \cite{grice1975, horn1984, levinson2000}. Because they are uninformative, negations without a positive expectation seem pragmatically infelicitous. Is this infelicity specifically responsible for the processing cost of negation?
+Yet not all negations are equally felicitous. For example, it would be strange for a barista to greet a customer by saying ``we don't have any chai''---unless he was talking to a regular who always ordered chai. And it would be even weirder if he then said ``we don't have any carburetors.'' On Gricean and neo-Gricean accounts of the pragmatics of language use in context, listeners expect speakers to produce informative and relevant utterances \cite{grice1975, horn1984, levinson2000}. The caf\'e's lack of chai would be less informative if the customer didn't want chai, and the subsequent remark about carburetors is both uninformative \emph{and} irrelevant. But is this kind of pragmatic infelicity generally responsible for the processing cost of negation?
 
-Consistent with this suggestion, presenting negative information in a supportive context can mitigate some of its processing costs \cite{wason1965, glenberg1999}. Contexts that explicitly mention a negated characteristic \cite{ludtke2006} or that present negation within a dialogue \cite{dale2011} tended especially to be processed faster.  And in an ERP experiment, contextually-supported negations (e.g., ``With proper equipment, scuba-diving isn't very dangerous'') elicited smaller N400 responses (a marker of semantic processing costs) than unlicensed negations (e.g., ``Bulletproof vests aren't very dangerous'') \cite{nieuwland2008}.
+Consistent with this suggestion, presenting negative information in a supportive context can mitigate some of its processing costs \cite{wason1965, glenberg1999}. Contexts that explicitly mention a negated characteristic \cite{ludtke2006} or that present negation within a dialogue \cite{dale2011} tend especially to be processed faster.  And in an ERP experiment, contextually-supported negations (e.g., ``with proper equipment, scuba-diving isn't very dangerous'') elicited smaller N400 responses---a marker of semantic processing costs---than unlicensed negations \cite<e.g., ``bulletproof vests aren't very dangerous''>{nieuwland2008}.
 
-Although this previous work supports the idea that some kind of contextual expectations are the source of negation's processing cost, they do not specify the precise nature of these expectations. Drawing on a recent theoretical model of pragmatic reasoning \cite{frank2012}, we define pragmatic expectations in context as the probability that a speaker would utter a statement in order to convey a particular meaning. Our current experiment directly tests the hypothesis that expectations about what speakers would likely say---and their match or mismatch with what the speaker in fact \emph{does} say---are responsible for the processing costs of negation.
+Although this previous work supports the idea that some kind of contextual expectations are the source of negation's processing cost, they do not specify the precise nature of these expectations. Drawing on a recent theoretical model of pragmatic reasoning \cite{frank2012}, we define pragmatic expectations in context as the probability that a speaker would utter a statement in order to convey a particular meaning. Our current experiment directly test two hypotheses. First, expectations about what speakers would likely say---and their match or mismatch with what the speaker in fact \emph{does} say---are responsible for the processing costs of negation. Second, RELEVANCE AND INFORMATIVENESS.
 
-In our experiment, we show participants sets of characters who are identical except for the presence or absence of a feature (e.g., boys with or without apples). In the \emph{speaker} condition, we ask participants to produce written descriptions that pick a particular target character out of the set; while in the \emph{listener} condition, we ask participants to evaluate the truth value of negative or positive statements about the target character. Our prediction is that the processing cost for listeners of a negative sentence for a target should be predicted by the surprisal \cite{levy2008} related to a speaker using negation to describe that target.
+In our experiment, we show participants sets of characters who are identical except for the presence or absence of a feature (e.g., boys with or without apples). In the \emph{speaker} condition, we ask participants to produce written descriptions that pick a particular target character out of the set; while in the \emph{listener} condition, we ask participants to evaluate the truth value of negative or positive statements about the target character. Our predictions are: A) that the processing cost for listeners of a negative sentence for a target should be predicted by the surprisal \cite{levy2008} related to a speaker using negation to describe that target. B) that...
 
 \section{Method}
 
@@ -104,7 +104,7 @@ Surprisal = -\log(P(sentence)).
 
 \begin{figure}[t]
 \begin{center} 
-\includegraphics[width=6in]{figures/rts.pdf}
+\includegraphics[width=4.5in]{figures/rts.pdf}
 \caption{\label{fig:e2line} Reaction times for each trial type across different conditions. Responses to true sentences are shown on the left, and false sentences are shown on the right.  Negative sentences are shown in grey, and positive sentences in black.  The context condition is notated by a fraction representing the number of characters in the context who held target items. Error bars show 95\% confidence intervals computed by non-parametric bootstrapping.  }
 \end{center} 
 \end{figure}
@@ -139,8 +139,8 @@ To evaluate the reliability of these patterns, we fit a linear mixed-effects mod
 
 \begin{figure}[t]
 \begin{center} 
-\includegraphics[width=6in]{figures/surprisals.pdf}
-\caption{\label{fig:e2line} Surprisal for true positive and true negative sentences across different conditions. On the left is a plot of surprisal computed using data from the speaker condition of the experiment, and on the right are model predictions for the same sentences.  Negative sentences are shown in grey, and positive sentences in black.  The context condition is notated by a fraction representing the number of characters in the context who held target items. Error bars show 95\% confidence intervals computed by non-parametric bootstrapping.  }
+\includegraphics[width=3in]{figures/surprisals.pdf}
+\caption{\label{fig:e2line} \textcolor{blue}{FIXME} Surprisal for true positive and true negative sentences across different conditions. On the left is a plot of surprisal computed using data from the speaker condition of the experiments.  Negative sentences are shown in grey, and positive sentences in black.  The context condition is notated by a fraction representing the number of characters in the context who held target items. Error bars show 95\% confidence intervals computed by non-parametric bootstrapping.  }
 \end{center} 
 \end{figure}
 
@@ -151,100 +151,13 @@ Surprisal was much higher for negative sentences compared to positive sentences 
 %More here
 To test the hypothesis that sentence processing is related to listeners' expectations about what a speaker will say, we plotted the mean reaction time in response to true positive and negative utterances in each condition against the surprisal for the same utterances.  There was a significant posiitve correlation between surprisal and reaction time for true negative sentences, $r=.97$, $p<.001$, supporting our prediction that the effects of context on reaction time were driven by differences in how speakers' described the stimuli.  
 
-%\section{Discussion}
 
-
-
-%Quantitative manipulation of the strength of the context resulted in systematic changes in the processing cost of negation, particularly for true negative sentences.  This finding is consistent with our initial hypothesis: As the proportion of people in the context with the target item increases, describing the trial picture as \emph{not} having that target item becomes more informative.  That is, the more people in the context who have apples, the more we expect a person with nothing to be described as ``a boy with no apples.'' 
-
-%FIXME: NEED MORE HERE -- Make a point about this being a general pragmatic process.  
-
-%\section{Experiment 2}
-%
-%In Experiment 1, we demonstrated that a simple visual context can facilitate the processing of negative sentences, and that there is a linear relationship between the strength of the context and the effect on reaction time to evaluate negative sentences.  Contexts that set up a strong expectation lead to faster reaction times to process a negative sentence when that expectation is violated.  Our prediction was based on previous work demonstrating that participants expect speakers to be informative when speaking \cite{frank2012}.  If everyone in the context has a specific feature, and the trial character is lacking that feature, it is highly informative to describe the trial character in terms of the negation of the expected feature.  However, although the results of Experiment 1 support this interpretation, we do not know for sure whether participants expect speakers to use negation in these contexts.  Experiment 2 attempts to directly measure participants' expectations of how a speaker would describe the pictures seen in Experiment 1.
-%
-%\subsection{Method}
-%
-%\subsubsection{Participants} 
-%
-%%NOTE: These ns are correct & checked
-%We recruited 296 participants from mTurk (167 male, 127 female, two declined to report gender; ages 18 -- 65+). We restricted participation to individuals in the US and paid 50 cents for this 10 minute study.  
-%
-%\subsubsection{Stimuli}
-%
-%FIXME: ADD STIMULI FIGURE
-%
-%Stimuli were identical to those used in Experiment 1, with the same within-subjects context condition.  The only difference was that after the target item was highlighted in red, an incomplete sentence appeared (e.g. ``[NAME] has $\rule{3cm}{0.15mm}$.'').  In half of the trials, the highlighted picture was holding target items, and in half of the trials, the highlighted picture was holding nothing.  The experiment was fully crossed such that target characters appeared with or without target items an equal number of times in each context type.  
-%
-%\subsubsection{Procedure}
-%
-%Participants were first presented with an instructions screen which described the task and informed them that they could stop at any time.  
-%
-%In each trial, participants saw an array of four pictures: The target pictures and three context pictures presented in a random order.  Participants were told to look at these pictures for four seconds, at which point a red box appeared around one of the pictures.  One second later, an incomplete sentence appeared.  Participants were told to finish the sentence (by typing into a small text box) using only a few words, in a way that would help someone else identify the character in the red box if they saw the pictures in a different order.  
-% 
-% \subsubsection{Data Processing}
-%We excluded 13 participants who did not list English as their native language, leaving a total of 283 participants for analysis.  
-%
-%\subsection{Results and Discussion}
-%
-%
-%FIXME: NEW GRAPHS
-%\begin{figure}[t]
-%\begin{center} 
-%\includegraphics[width=3.25in]{figures/study2a_linegraph.pdf}
-%\includegraphics[width=3.25in]{figures/study2b_linegraph.pdf}
-%\caption{\label{fig:e2line} Reaction times for each trial type across different conditions. Responses to true sentences are shown on the left, and false sentences are shown on the right.  Negative sentences are shown in grey, and positive sentences in black.  Data for Experiment 2a (3-person contexts) are shown above, and data for Experiment 2b (4-person contexts) are shown below.  The context condition is notated by a fraction representing the number of characters in the context who held target items. Error bars show 95\% confidence intervals.  }
-%\end{center} 
-%\end{figure}
-%
-%FIXME: WHAT RESULTS HERE?
-%
-%FIXME:
-%In Experiment 1, we found that including a visual context facilitates the processing of negative sentences, and that this effect is modulated by the strength of the expectation set up by the context.  As the proportion of people with a target item in the context increases, the reaction time to process a negative sentence that negates that target property decreases.  We hypothesized that this effect is due to the ways that context changes expectations about what a speaker might say to describe a picture.  If you see a context in which the every character except for one is holding apples, it makes sense to predict that the boy holding nothing might be described as a ``boy with no apples''.  However, if you see a context in which nobody is holding anything, it would be odd to describe one of them as ``a boy with no apples'', because you have no reason to expect that he \emph{would} have apples.  Our prediction was that these expectations, calculated as the surprisal of seeing a picture described using a certain sentence, would be positively correlated with reaction times from previous studies.  Experiment e confirmed this hypothesis.  
-
-%\section{Model}
-%NOTE: This might be too weird, but I skipped straight to the model here because otherwise I felt like there was too much repetition of the discussion of experimental results?  
-
-
-%Our experiment showed that participants were faster to respond to and more likely to produce negative sentences when a greater proportion of characters in the context possessed the negated item.  This was consistent with our hypothesis that the processing cost of negation is due to general pragmatic principles about how listeners expect speakers to behave.  
-%that a simple visual context can facilitate the processing of negation, with contexts that set up a strong expectation leading to faster RTs for negative sentences in the listener condition.  In the speaker condition, we used participants' spontaneous descriptions of our stimuli to calculate the surprisal of different sentence types, and demonstrated that participants' reaction times are highly correlated with the surprisal of an utterance. 
-%We hypothesized that this effect was driven by the expectation that speakers are informative \cite{grice1975,frank2012}: If everyone in a context has a specific feature except for the person being described, it is highly informative to describe that person in terms of the negation of the expected feature. In contrast, if no one has a feature, it's pragmatically odd to negate it. In this section, we formalize these intuitions.  
-
-%We modeled the behavior of participants in our experiments by assuming that reaction time is proportional to the surprisal of the utterance $w$, given the context $C$ and the speaker's intended referent $r_S$ (following \citeNP{levy2008}):
-
-%\begin{equation}\label{eq:model_surprise}
-%RT \sim -\log(P(w| r_s, C)).
-%\end{equation}
-
-%\noindent We then define the probability of the utterance as proportional to its utility (following \citeNP{frank2012}):
-%
-%\begin{equation}\label{eq:pw1}
-%P(w | r_s, C) \propto  e^{U(w;r_s,C)},
-%\end{equation} 
-%
-%\noindent This utility is defined as the informativeness of $w$ minus its cost $D(w)$:
-%
-%\begin{equation}\label{eq:utility}
-%U(w;r_s,C) = I(w;r_s, C) - D(w).
-%\end{equation}
-%
-%\noindent Informativeness in context is calculated as the number of bits of information conveyed by the word. We assume that $w$ has a uniform probability distribution over its extension in context (e.g.\ ``boy with apples'' applies to any boy who has apples, leading to a probability of $1/|w|$ of picking out each individual boy with apples) :
-%
-%\begin{equation}\label{eq:info}
-%I(w;r_s, C) = -(-\log(|w|^{-1})).
-%\end{equation}
-%
-%\noindent The cost term $D(w)$ can then be defined in any number of ways; in this model we define it as the number of words in the utterance multiplied by a cost-per-word parameter.  Note that in our experiment, the negative sentences always have exactly one word more than the positive sentences. 
-%
-%We created a sparse vocabulary which represented possible words to describe the characters.  This included the target utterance (e.g.\ ``apples'' and ``no apples''), as well as words that were uniformly true or false of all characters. Combining Equations \ref{eq:pw1}--\ref{eq:info}, and normalizing Eq.\ \ref{eq:pw1} over all possible words in the vocabulary $V$, we have:
-%
-%\begin{equation}\label{eq:pw2}
-%P(w | r_s, C) = \frac{ e^{\log(|w|^{-1}) - D(w)}} {\sum_{w' \in V}{e^{\log(|w'|^{-1}) - D(w')}}}.
-%\end{equation}
-%
-%\noindent Combining Eq. \ref{eq:model_surprise} with Eq. \ref{eq:pw2}, this model predicts that as the number of e.g.\ boys with apples in the context increases, the informativeness of the negative sentence ``Bob has no apples'' increases, because it selects an increasingly smaller subset of the context. Highly informative sentences will have high probability, hence lower surprisal and faster RTs. 
-%
-%We fit this model to the data from our experiment, with cost = 2.1.\footnote{We present the results of our simulations using the best-fitting parameters, but the model predictions remain stable over a wide range of parameter values with cost > 1).}  Our model accounted for a substantial amount of variance in reaction times for participants in the listener condition ($r=.89$, $p<.01$) as well as surprisal calculated from participants responses in the speaker condition ($r=.81$, $p<.05$).  These results collectively suggest that  speakers' productions are influenced by the informativeness of a sentence in context, and that listeners expect to hear sentences that are more informative given the context.
+\begin{figure}[t]
+\begin{center} 
+\includegraphics[width=4in]{figures/production_rts.pdf}
+\caption{\label{fig:scatter} ... }
+\end{center} 
+\end{figure}
 
 \section{General Discussion}
 
