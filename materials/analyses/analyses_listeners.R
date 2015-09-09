@@ -23,7 +23,7 @@ plot.style <- plot.style <- theme_bw() + theme(panel.grid.minor=element_blank(),
 #####Preliminaries#####
 
 #load in listener data
-d.listeners <- read.csv("data/data_listeners.csv")
+d.listeners <- read.csv("../data/data_listeners.csv")
 d.listeners$subid <- as.factor(d.listeners$subid)
 
 ##Remove people with less than 80% accuracy
