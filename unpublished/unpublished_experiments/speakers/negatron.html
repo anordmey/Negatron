@@ -1,0 +1,192 @@
+<html>
+<head>
+<title>Language Experiment</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="mmturkey.js"></script>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="slide" id="instructions">
+  
+  <p id='logo-text'>Complete the sentences!</p>
+
+    <b>THIS IS A DEMO OF AN UNPUBLISHED EXPERIMENT. NO DATA WILL BE COLLECTED. </b>
+  <br><br>
+
+ <p class="block-text"> In this experiment, you will see pictures of four different people for four seconds.  During this time, pay attention to all of the people that you see.  After four seconds, a box will appear around one of the people, and an incomplete sentence will appear about that person.  Your job is to complete the sentence about that person.  </p>
+
+    <p id="pleaseWait"></p></p>
+
+<button id="startButton" type="button" disabled="disabled"
+ onClick="this.blur(); experiment.practice_start()">Start</button>
+
+  <p class="block-text" id="legal">Legal information: By answering the
+  following questions, you are participating in a study being performed by
+  developmental psychologists in the Stanford Department of Psychology. If you have
+  questions about this research, please contact us at <a
+  href="mailto://languagecoglab@gmail.com">languagecoglab@gmail.com</a>. You must be  at least 18 years old to
+  participate. Your participation in this research is voluntary. You may
+  decline to answer any or all of the following questions. You may decline
+  further participation, at any time, without adverse consequences. Your
+  anonymity is assured; the researchers who have requested your
+  participation will not receive any personal information about you.
+<br> <br>
+<b> 
+We have recently been made aware that your public Amazon.com profile can be accessed via your worker ID if you do not choose to opt out. If you would like to opt out of this feature, you may follow instructions available here:
+<br>
+<a href= "https://www.amazon.com/gp/help/customer/display.html?nodeId=16465241">https://www.amazon.com/gp/help/customer/display.html?nodeId=16465241</a> </b>
+</p>
+</div>
+
+
+
+<div class="slide" id="practiceStart">
+  <p class="block-text"><b>Instructions:</b><br><br>
+
+ Remember, first you will see four people.  Pay attention to all four people until a red box appears around one of the people.  When the red box appears, you will see an incomplete sentence below the pictures.
+<br><br>
+ <b>The sentence that you see is about the picture with the box around it.</b>  Your job is to finish the sentence using only a few words.  You should complete the sentence in a way that would help someone else identify the character in the red box if they saw the pictures in a different order.  
+  <br></br>
+<center>
+  Press "Example" to view a practice example!
+<br>
+   <button id="startButton2" type="button" 
+ onClick="this.blur(); experiment.practice_two()">Example</button>
+</div>
+
+<div class="slide" id="practiceTwo">
+  <p class="block-text"><b>Example:</b><br><br>
+Here is an example.  You might see four people like this:
+<center>
+
+ <img src = "images/oranges_nothing.jpg" width="100" class="defaultPic"> 
+ <img src = "images/oranges_nothing.jpg" width="100" class="defaultPic"> 
+ <img src = "images/oranges_item.jpg" width="100" class="defaultPic"> 
+ <img src = "images/oranges_nothing.jpg" width="100" class="defaultPic"> 
+
+</center>
+
+ <p class="block-text">And then after four seconds, a red box appears, like this:
+<center>
+ <img src = "images/oranges_nothing.jpg" width="100" class="defaultPic"> 
+ <img src = "images/oranges_nothing.jpg" width="100" class="defaultPic"> 
+ <img src = "images/oranges_item.jpg" width="100" class="selectedPic"> 
+ <img src = "images/oranges_nothing.jpg" width="100" class="defaultPic"> 
+ <br>
+ Allen has <input type='text'>.
+</center>
+<br>
+ <p class="block-text">Remember, your job is to complete the sentence so that another person might be able to identify the character if they saw these pictures in a different order.  
+<br><br>
+For example, you might complete this sentence by typing "an orange", so that the sentence reads "Allen has an orange."
+<br><br>
+<center>
+Press "Start" to begin!
+<br>
+   <button id="startButton3" type="button" 
+ onClick="this.blur(); experiment.next_trial()">Start</button>
+
+</div>
+
+
+<div class="slide" id="stage">
+  <p align="center">
+  <table border="0">
+    <tr height=360px>
+      <td>
+	<table border="0">
+	  <tr>
+	    <td width=200px>
+	      <p id="pic1" class="defaultPic"></p>
+	    </td>
+	    <td width=200px>
+	      <p id="pic2" class="defaultPic"></p>
+	    </td>
+	    <td width=200px>
+	      <p id="pic3" class="defaultPic"></p>
+	    </td>
+      <td width=200px>
+        <p id="pic4" class="defaultPic"></p>
+      </td>
+	  </tr>
+	</table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+	<p id="questionText"></p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <center><button id="nextButton" type="button" class="hiddenButton">Next</button></center>
+      <p id="instructionsText"></p>
+      </td>
+    </tr>
+  </table>
+  </p>
+</div>
+
+<div class="slide" id="askInfo">
+    
+    <p><b> Please answer a few questions about yourself. </b> </p>
+    <br>
+
+    <form name="gender" id="gender">
+    <b>Gender:</b> &nbsp;&nbsp;
+    <input type="radio" name="genderButton" value="M" />Male &nbsp;&nbsp;
+    <input type="radio" name="genderButton" value="F" />Female &nbsp;&nbsp;
+    <input type="radio" name="genderButton" value="Decline" />Decline to answer
+    </form>
+    
+    <br>
+
+    <form name="age" id="age">
+    <b>Age range:</b> &nbsp;&nbsp;
+    <select name="ageRange" id="ageRange">
+    <option value=17>Under 18</option>
+    <option value=25>18-25</option>
+    <option value=35>26-35</option>
+    <option value=45>36-45</option>
+    <option value=55>46-55</option>
+    <option value=65>56-65</option>
+    <option value=66>Above 66</option>
+    <option value=NA>Decline to answer</options>
+    </select>
+    </form>
+
+    <br>
+    
+    <form name="language" id="language">
+    <b>What is your native language? </b>&nbsp;&nbsp;
+    <input type="text" id="nativeLanguage"/>
+    </form>
+
+    <br>
+      
+    <form name="about" id="about">
+    <b>What did you think this HIT was about?</b>
+    <br>
+    <textarea id="aboutQ" rows=5 cols=75></textarea>
+    </form>
+
+    <br>
+
+    <form name="comment" id="comments">
+    <b>Please leave any comments or suggestions regarding this HIT:</b>
+    <br>
+    <textarea id="commentQ" rows=5 cols=75></textarea>
+    </form>
+
+
+    <button type="button" id="endButton">Submit</button>
+
+</div>
+
+<div class="slide" id="finished">
+  You're finished - thanks for participating! Submitting to Mechanical Turk...
+</div>
+<script src="negatron.js"></script>
+
+</body>
+</html>

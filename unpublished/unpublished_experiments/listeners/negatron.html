@@ -1,0 +1,184 @@
+<html>
+<head>
+<title>Language Experiment</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="mmturkey.js"></script>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="slide" id="instructions">
+  
+  <p id='logo-text'>Is the sentence True or False?</p>
+
+ <p class="block-text"> 
+  <b>THIS IS A DEMO OF AN UNPUBLISHED EXPERIMENT. NO DATA WILL BE COLLECTED. </b>
+  <br><br>
+
+  In this experiment, you will see pictures of four people for four seconds.  During this time, pay attention to all of the people that you see.  After four seconds, a box will appear around one of the people.  After one second, a sentence about that picture will appear. Your job is to decide whether these sentences are true
+ or false.  <b> Press P for true and Q for false.</b>
+  <br><br>
+  <b>Your responses in this experiment are
+  timed.  Please try to respond to each question as quickly and
+ accurately as possible. </b></p>
+
+    <p id="pleaseWait"></p></p>
+
+<button id="startButton" type="button" disabled="disabled"
+ onClick="this.blur(); experiment.practice_start()">Start</button>
+
+  <p class="block-text" id="legal">Legal information: By answering the
+  following questions, you are participating in a study being performed by
+  developmental psychologists in the Stanford Department of Psychology. If you have
+  questions about this research, please contact us at <a
+  href="mailto://languagecoglab@gmail.com">languagecoglab@gmail.com</a>. You must be  at least 18 years old to
+  participate. Your participation in this research is voluntary. You may
+  decline to answer any or all of the following questions. You may decline
+  further participation, at any time, without adverse consequences. Your
+  anonymity is assured; the researchers who have requested your
+  participation will not receive any personal information about you.
+<br> <br>
+<b> 
+We have recently been made aware that your public Amazon.com profile can be accessed via your worker ID if you do not choose to opt out. If you would like to opt out of this feature, you may follow instructions available here:
+<br>
+<a href= "https://www.amazon.com/gp/help/customer/display.html?nodeId=16465241">https://www.amazon.com/gp/help/customer/display.html?nodeId=16465241</a> </b>
+</p>
+</div>
+
+
+
+<div class="slide" id="practiceStart">
+  <p class="block-text2"><b>Practice Questions:</b><br><br>
+
+ First you will have a chance to practice. Remember, first you will see four people, and you should pay attention to all four people until a box appears around one of them.  
+<br><br>
+ After the red box appears, you will see a sentence.  <i>The sentence is about the picture with the box around it.</i>  You must decide <b>as quickly as possible</b> whether the sentence is true or false of the indicated picture. <b> Press Q for FALSE and P for TRUE. </b>
+  
+  <br></br>
+   <p class="block-text3"> <i>Press space to continue.</i>  </p>
+</div>
+
+<div class="slide" id="practiceKeyLeft">
+  <p class="block-text2">Throughout this experiment, please use your left hand to
+  press "Q" (False) and your right hand to press "P" (True). 
+  <br></br>
+   <p class="block-text3"> <b>Please use your left hand to press "Q" (false)
+  to continue.</b>  </p>
+</div>
+
+<div class="slide" id="practiceKeyRight">
+  <p class="block-text2">Thank you.
+  <br></br>
+   <p class="block-text3"> <b>Now please use your right hand to press
+  "P" (true).  This will begin the practice trials.  </b>  </p>
+</div>
+
+
+
+<div class="slide" id="stage">
+  <p align="center">
+  <table border="0">
+    <tr height=360px>
+      <td>
+	<table border="0">
+	  <tr>
+	    <td width=200px>
+	      <p id="pic1" class="defaultPic"></p>
+	    </td>
+	    <td width=200px>
+	      <p id="pic2" class="defaultPic"></p>
+	    </td>
+	    <td width=200px>
+	      <p id="pic3" class="defaultPic"></p>
+	    </td>
+      <td width=200px>
+        <p id="pic4" class="defaultPic"></p>
+      </td>
+	  </tr>
+	</table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+	<p id="questionText"></p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <p id="instructionsText"></p>
+      </td>
+    </tr>
+  </table>
+  </p>
+</div>
+
+<div class="slide" id="practiceEnd">
+  <p class="block-text2">This is the end of the practice questions.
+  Remember, during the game we will be recording how quickly you
+  respond, so <b>please respond as quickly and accurately
+  as possible.</b>
+  <br></br><i>Press space to begin the matching game!</i></p>
+</div>
+
+<div class="slide" id="askInfo">
+    
+        <p><b> Please answer a few questions about yourself. </b> </p>
+    <br>
+
+    <form name="gender" id="gender">
+    <b>Gender:</b> &nbsp;&nbsp;
+    <input type="radio" name="genderButton" value="M" />Male &nbsp;&nbsp;
+    <input type="radio" name="genderButton" value="F" />Female &nbsp;&nbsp;
+    <input type="radio" name="genderButton" value="Decline" />Decline to answer
+    </form>
+    
+    <br>
+
+    <form name="age" id="age">
+    <b>Age range:</b> &nbsp;&nbsp;
+    <select name="ageRange" id="ageRange">
+    <option value=17>Under 18</option>
+    <option value=25>18-25</option>
+    <option value=35>26-35</option>
+    <option value=45>36-45</option>
+    <option value=55>46-55</option>
+    <option value=65>56-65</option>
+    <option value=66>Above 66</option>
+    <option value=NA>Decline to answer</options>
+    </select>
+    </form>
+
+    <br>
+    
+    <form name="language" id="language">
+    <b>What is your native language? </b>&nbsp;&nbsp;
+    <input type="text" id="nativeLanguage"/>
+    </form>
+
+    <br>
+      
+    <form name="about" id="about">
+    <b>What did you think this HIT was about?</b>
+    <br>
+    <textarea id="aboutQ" rows=5 cols=75></textarea>
+    </form>
+
+    <br>
+
+    <form name="comment" id="comments">
+    <b>Please leave any comments or suggestions regarding this HIT:</b>
+    <br>
+    <textarea id="commentQ" rows=5 cols=75></textarea>
+    </form>
+
+
+    <button type="button" id="endButton">Submit</button>
+    
+</div>
+
+<div class="slide" id="finished">
+  You're finished - thanks for participating! Submitting to Mechanical Turk...
+</div>
+<script src="negatron.js"></script>
+
+</body>
+</html>
