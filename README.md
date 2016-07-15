@@ -1,4 +1,4 @@
-**Nordmeyer & Frank, "Negation is only hard to process when it is not relevant or informative"**
+## Nordmeyer & Frank, "Negation is only hard to process when it is not relevant or informative"
 
 
 **Experiment code** can be viewed in the "experiments" directory.  The listener condition can be viewed 
