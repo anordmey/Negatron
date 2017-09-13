@@ -37,7 +37,7 @@ function preloading() {
 		myimages[x].src = img;
 	}
 }
-preloading("button-gradient", "stanford", "boat", "cup", "barn", "bird", "apple", "balloon", "banana", "bike", "bucket", "bus", "cake", "carrot", "crayon", "car", "cat", "cookie", "cow", "duck", "dog", "donut", "elephant", "fish", "flower", "fork", "frog", "guitar", "horse", "key", "lion", "mitten", "pencil", "phone", "pig", "popsicle", "purse", "strawberry", "shoe", "shirt", "tree", "turtle")
+preloading("button-gradient", "stanford", "boat", "cup", "barn", "bird", "apple", "balloon", "banana", "bike", "bucket", "bus", "cake", "carrot", "crayon", "car", "cat", "cookie", "cow", "duck", "dog", "donut", "elephant", "fish", "flower", "fork", "frog", "guitar", "horse", "key", "lion", "mitten", "pencil", "phone", "pig", "popsicle", "purse", "strawberry", "shoe", "shirt", "tree", "turtle", "watch", "train", "toothbrush", "tiger", "table", "spoon", "sock", "soccer", "sheep", "scissors", "pretzel", "plane", "shorts", "popcorn", "plate", "penguin", "pear", "party_hat", "monkey", "necklace", "paintbrush", "map", "lamp", "hat", "glasses", "goat", "house", "giraffe", "drum", "fence", "clock", "chicken", "butterfly", "bee", "bell", "chair")
 
 // --------------- PARAMETERS OF THE EXPERIMENT ----------------
 var practiceItems = ["boat", "cup", "barn", "bird"]
@@ -182,8 +182,8 @@ var experiment = {
 		$(".contextT").attr("src", targetPic)
 		$(".target").attr("src", targetPic)
 
-		var practiceQuestion_start = "Look at these pictures! "
-		$("#questionText").html(makeQuestionText(practiceQuestion_start))
+		//var practiceQuestion_start = "Look at these pictures! "
+		//$("#questionText").html(makeQuestionText(practiceQuestion_start))
 		$("#instructionsText").html("Please wait .")
 
 		//Wait four seconds before showing target character
