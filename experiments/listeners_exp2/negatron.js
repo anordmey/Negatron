@@ -182,8 +182,8 @@ var experiment = {
 		$(".contextT").attr("src", targetPic)
 		$(".target").attr("src", targetPic)
 
-		//var practiceQuestion_start = "Look at these pictures! "
-		//$("#questionText").html(makeQuestionText(practiceQuestion_start))
+		var practiceQuestion_start = "Look at the pictures."
+		$("#questionText").html(makeQuestionText(practiceQuestion_start))
 		$("#instructionsText").html("Please wait .")
 
 		//Wait four seconds before showing target character
@@ -325,7 +325,7 @@ var experiment = {
 			$(".target").attr("src", altPic)
 		}
 
-		var context_text = "Look at these pictures!"
+		var context_text = "Look at the pictures."
 
 		$("#questionText").html(makeQuestionText(context_text))
 		$("#instructionsText").html("Please wait .")
@@ -359,9 +359,9 @@ var experiment = {
 
 				var question_text
 				if (trial_types[n][1] == "positive") {
-					question_text = "This is" + det + items[n] + "!"
+					question_text = "This is" + det + items[n] + "."
 				} else if (trial_types[n][1] == "negative") {
-					question_text = "This is not" + det + items[n] + "!"
+					question_text = "This is not" + det + items[n] + "."
 				}
 
 				$("#questionText").html(makeQuestionText(question_text))
