@@ -298,11 +298,14 @@ kable(ms.listeners, digits = 2)
 
 Plot reaction time; compare to Figure 4 in paper: 
 
-```{r listener_rts} 
+```{r listener_rts, fig.width=12, fig.height=6} 
 #quartz()
-ggplot(data = subset(ms.listeners, truth.value == TRUE), aes(colour = sentence.type, y = rt, x = context)) +
-  geom_line(aes(group = sentence.type), size = .5) +
-  geom_errorbar(aes(ymin = rt.cil, ymax = rt.cih), width = 0, size = .25) +
+ms.listeners$truth.value <- factor(ms.listeners$truth.value, levels = c(TRUE, FALSE), labels = c("True", "False"))
+
+ggplot(data = subset(ms.listeners), aes(colour = sentence.type, y = rt, x = context)) +
+  geom_line(aes(group = sentence.type), size = 1) +
+  geom_errorbar(aes(ymin = rt.cil, ymax = rt.cih), width = 0, size = 1) +
+  facet_wrap(~truth.value) +
   scale_y_continuous(name = "RT (ms)", breaks = seq(1000, 2000, 100)) + 
   xlab("Context Condition") + 
   scale_colour_grey("Sentence Type") + 
