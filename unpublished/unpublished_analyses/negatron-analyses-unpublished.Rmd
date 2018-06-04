@@ -19,7 +19,7 @@ library(knitr)
 `r opts_chunk$set(cache=TRUE)`
 
 ##Quick Summary
-Participants were randomly assigned to be either listeners (truth value judgment task) or listeners (complete the sentence task). Context condition indicates the proportion of characters holding items (e.g., how many of the four boys were holding apples). Context varied within subjects. 
+Participants were randomly assigned to be either speakers (complete the sentence task; n = 266) or listeners (truth value judgment task; n = 186). Context condition indicates the proportion of characters holding items (e.g., how many of the four boys were holding apples). Context varied within subjects. 
 
 This is an example of what a trial looked like:
 ![Example of a 1/4, true negative trial](trial_v1.png)
