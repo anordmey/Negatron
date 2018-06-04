@@ -7,14 +7,6 @@ output:
     toc: true
 ---
 
-Analyses for a previous, unpublished version of the experiments described in  Nordmeyer & Frank, "Negation is only hard to process when it is not relevant or informative". 
-
-These experiments were identical to the published experiments, except that the characters were identical except for the presence or absence of items (in the version described in the paper, characters also differed in shirt/hair color). These unpublished experiments can be viewed at FIXME. 
-
-## Setting up
-
-Load libraries.
-
 ```{r libs}
 library(dplyr)
 library(ggplot2)
@@ -23,6 +15,35 @@ library(bootstrap)
 library(grid)
 library(knitr)
 ```
+
+`r opts_chunk$set(cache=TRUE)`
+
+##Quick Summary
+Participants were randomly assigned to be either listeners (truth value judgment task) or listeners (complete the sentence task). Context condition indicates the proportion of characters holding items (e.g., how many of the four boys were holding apples). Context varied within subjects. 
+
+This is an example of what a trial looked like:
+![Example of a 1/4, true negative trial](trial_v1.png)
+
+Here are the speaker data: 
+![Speaker Surprisal](speaker_surprisal-1.png)
+
+Here are the listener data: 
+![Listener RTs](listener_rts-1.png)
+
+
+
+##Full analyses
+
+Analyses for a previous, unpublished version of the experiments described in  Nordmeyer & Frank, "Negation is only hard to process when it is not relevant or informative". 
+
+These experiments were identical to the published experiments, except that the characters were identical except for the presence or absence of items (in the version described in the paper, characters also differed in shirt/hair color). These unpublished experiments can be viewed here:
+
+Listener Condition: http://anordmey.github.io/negatron/unpublished/unpublished_experiments/listeners/negatron.html 
+
+Speaker Condition: http://anordmey.github.io/negatron/unpublished/unpublished_experiments/speakers/negatron.html
+
+
+## Setting up
 
 Functions and add some style elements for ggplot2.
 
