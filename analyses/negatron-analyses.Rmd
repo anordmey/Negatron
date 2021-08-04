@@ -105,7 +105,7 @@ n = `r n.unique(d.speakers$subid)` participants in speaker condition.
 Table of mean probabilities: 
 ```{r speaker_means}
 ##Means by subject
-ms.speakers <- rbind_list(
+ms.speakers <- bind_rows(
   d.speakers %>% 
     group_by(recode.context, trial.type, subid) %>%
     summarise(count = mean(code.cat == "Negation"), code.cat = "Negative"),
@@ -352,7 +352,7 @@ kable(summary(model3)$coefficients, digits = 2)
 Only look at true sentences: 
 
 ```{r filter_true}
-ms.listeners <- ms.listeners[ms.listeners$truth.value == TRUE,]
+ms.listeners <- ms.listeners[ms.listeners$truth.value == "True",]
 ms.listeners <- ms.listeners[,c("context","sentence.type","rt","rt.cih","rt.cil")]
 
 ms.speakers <- subset(ms.speakers, (sentence.type == "Negative" & trial.type == "nothing") | (sentence.type == "Positive" & trial.type == "item"))
@@ -419,4 +419,48 @@ subplot <- ggplot(data.trimmed, aes(color=sentence.type, y=rt, x=surprisal)) +
 print(mainplot)
 print(subplot)
 
+```
+
+## Follow up analysis: 0/4 speaker context
+
+What are people talking about in the 0/4 context? This is addressed in the General Discussion of the paper.
+
+```{r nothing_context}
+d.speakers$code.cat2 <- "Other"
+d.speakers[d.speakers$coding == "noun",]$code.cat2 <- "has [target item]"
+d.speakers[d.speakers$coding == "no",]$code.cat2 <- "has no [target item]"
+d.speakers[d.speakers$coding == "not",]$code.cat2 <- "Negation (other)"
+d.speakers[d.speakers$coding == "without",]$code.cat2 <- "Negation (other)"
+d.speakers[d.speakers$coding == "zero",]$code.cat2 <- "Negation (other)"
+d.speakers[d.speakers$coding == "nothing",]$code.cat2 <- "Negation (other)"
+d.speakers[d.speakers$coding == "color",]$code.cat2 <- "Color"
+d.speakers$code.cat2 <- factor(d.speakers$code.cat2)
+
+d.speakers_coding <- d.speakers %>%
+  group_by(recode.context, code.cat2) %>%
+  summarize(n = n()) %>%
+  mutate(freq = n / sum(n))
+
+ggplot(d.speakers_coding, aes(x = recode.context, y = freq, fill = code.cat2)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Context", y = "Frequency", fill = "Response Type") +
+  theme_classic()
+
+#Did speakers refer to color at all? This only slightly changes the proportions (e.g. a few participants are describing color AND negation e.g. "has a red shirt and no apples")
+d.speakers_color <- d.speakers %>%
+  group_by(recode.context, color) %>%
+  summarize(n = n()) %>%
+  mutate(freq = n / sum(n))
+
+d.speakers_ind <- d.speakers %>% 
+  group_by(subid, color) %>%
+  summarize(n = n()) %>%
+  mutate(freq = n / sum(n)) %>%
+  filter(color == 1)
+
+ggplot(d.speakers_ind, aes(x = reorder(subid, -freq), y = freq)) + 
+  geom_col()
+
+max(d.speakers_ind$freq)
+min(d.speakers_ind$freq)
 ```
