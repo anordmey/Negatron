@@ -59,7 +59,7 @@ ci.high <- function(x) {
   quantile(bootstrap(1:length(x),1000,theta,x)$thetastar,.975)}
 
 #Plot style
-plot.style <- plot.style <- theme_bw() + theme(panel.grid.minor=element_blank(), panel.grid.major=element_blank(), legend.position="right", axis.line = element_line(colour="black",size=.5), axis.ticks = element_line(size=.5), axis.title.x = element_text(vjust=-.5), axis.title.y = element_text(angle=90,vjust=0.25))
+plot.style <- theme_bw() + theme(panel.grid.minor=element_blank(), panel.grid.major=element_blank(), legend.position="right", axis.line = element_line(colour="black",size=.5), axis.ticks = element_line(size=.5), axis.title.x = element_text(vjust=-.5), axis.title.y = element_text(angle=90,vjust=0.25))
 ```
 
 ## Speaker condition
@@ -130,7 +130,7 @@ ms.speakers$sentence.type <- factor(ms.speakers$sentence.type, levels=c("Negativ
 kable(ms.speakers, digits = 2)
 ```
 
-Probability of producing a negative sentence on nothing trials (e.g., "no apples" when you see a person with nothing) or a positive sentence on item trials (e.g., "apples" when you see a person with apples); Figure 2 in paper:
+Probability of producing a negative sentence on nothing trials (e.g., "no apples" when you see a person with nothing) or a positive sentence on item trials (e.g., "apples" when you see a person with apples):
 
 ```{r speaker_probs}
 ggplot(data = subset(ms.speakers, 
@@ -147,7 +147,7 @@ ggplot(data = subset(ms.speakers,
   theme_classic(base_size = 25)
 ```
 
-Surprisal (-log(prob)) of producing a negative sentence on nothing trials (e.g., "no apples" when you see a person with nothing) or a positive sentence on item trials (e.g., "apples" when you see a person with apples); Figure 3 in paper. 
+Surprisal (-log(prob)) of producing a negative sentence on nothing trials (e.g., "no apples" when you see a person with nothing) or a positive sentence on item trials (e.g., "apples" when you see a person with apples). 
 
 ```{r speaker_surprisal}
 ggplot(data = subset(ms.speakers, 
@@ -297,7 +297,7 @@ ms.listeners$truth.value <- factor(ms.listeners$truth.value, levels = c(TRUE, FA
 kable(ms.listeners, digits = 2)
 ```
 
-Plot reaction time; Figure 4 in paper: 
+Plot reaction time: 
 
 ```{r listener_rts, fig.width=12, fig.height=6} 
 #quartz()
@@ -323,7 +323,7 @@ d.listeners.ct$dummy.context <- 0
 d.listeners.ct[d.listeners.ct$recode.context == "0/4",]$dummy.context <- 1
 ```
 
-Look at interaction between context, sentence type, and truth value; Table 1 in paper.
+Look at interaction between context, sentence type, and truth value.
 
 ```{r listener_model1}
 model1 <- lmer(rt ~ text.condition*truth.value*numeric.context 
@@ -389,7 +389,7 @@ data.trimmed <- subset(data.ms, context != "0/4")
 cor.test(data.trimmed$rt, data.trimmed$surprisal)
 ```
 
-Plot correlation; Figure 5 in paper:
+Plot correlation:
 
 ```{r comparison_plot}
 mainplot <- ggplot(data.ms, aes(color=sentence.type, y=rt, x=surprisal)) + 
@@ -456,8 +456,15 @@ ggplot(d.speakers_coding, aes(x = recode.context, y = freq, fill = code.cat2)) +
 d.speakers_color <- d.speakers %>%
   group_by(recode.context, color) %>%
   summarize(n = n()) %>%
-  mutate(freq = n / sum(n))
+  mutate(freq = n / sum(n), 
+         color = factor(color, levels = c(1, 0), labels = c("described color", "did not describe color")))
 
+ggplot(d.speakers_color, aes(x = recode.context, y = freq, fill = color)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Context", y = "Frequency", fill = "Response Type") +
+  theme_classic()
+
+#proportion of trials that refer to color, by speaker
 d.speakers_ind <- d.speakers %>% 
   group_by(subid, color) %>%
   summarize(n = n()) %>%

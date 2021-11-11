@@ -1,13 +1,20 @@
-## Nordmeyer & Frank, "Negation is only hard to process when it is not relevant or informative"
+## Nordmeyer & Frank, "Pragmatic felicity facilitates the production and comprehension of negation"
 
 
-**Experiment code** can be viewed in the "experiments" directory.  The listener condition can be viewed 
-[here](http://anordmey.github.io/negatron/experiments/listeners/negatron.html) and the speaker condition can be viewed [here](http://anordmey.github.io/negatron/experiments/speakers/negatron.html).
+**Experiment code** can be viewed in the "experiments" directory.  
 
-**Raw data and analysis code** can be found in the "analysis" directory.  Analyses can be viewed [here](http://anordmey.github.io/negatron/analyses/negatron-analyses.html).
+
+Experiment 1a (speakers, identical characters) can be viewed 
+[here](http://anordmey.github.io/negatron/experiments/experiment1/speakers/negatron.html)
+Experiment 1b (listeners, identical characters) can be viewed 
+[here](http://anordmey.github.io/negatron/experiments/experiment1/listeners/negatron.html)
+Experiment 2a (speakers, varied characters) can be viewed 
+[here](http://anordmey.github.io/negatron/experiments/experiment2/speakers/negatron.html)
+Experiment 2b (listeners, varied characters) can be viewed 
+[here](http://anordmey.github.io/negatron/experiments/experiment2/listeners/negatron.html)
+
+**Raw data and analysis code** can be found in the "analysis" directory.  
+Analyses for Experiment 1 can be viewed [here](http://anordmey.github.io/negatron/analyses/experiment1/negatron-analyses.html).
+Analyses for Experiment 2 can be viewed [here](http://anordmey.github.io/negatron/analyses/experment2/negatron-analyses.html).
 
 **The paper** can be found in the "paper" directory or viewed directly [here](http://anordmey.github.io/negatron/negatron.pdf).  
-
-The paper references a prior version of the experiments that were very similar to those reported here.  
-Those experiments can be viewed here: [listener condition](http://anordmey.github.io/negatron/unpublished/unpublished_experiments/listeners/negatron.html); [speaker condition](http://anordmey.github.io/negatron/unpublished/unpublished_experiments/speakers/negatron.html).  
-Data analysis for these past experiments can be viewed [here](http://anordmey.github.io/negatron/unpublished/unpublished_analyses/negatron-analyses-unpublished.html).
