@@ -14,7 +14,7 @@ Experiment 2b (listeners, varied characters) can be viewed
 [here](http://anordmey.github.io/negatron/experiments/experiment2/listeners/negatron.html)
 
 **Raw data and analysis code** can be found in the "analysis" directory.  
-Analyses for Experiment 1 can be viewed [here](http://anordmey.github.io/negatron/analyses/experiment1/negatron-analyses.html).
-Analyses for Experiment 2 can be viewed [here](http://anordmey.github.io/negatron/analyses/experment2/negatron-analyses.html).
+Analyses for Experiment 1 can be viewed [here](http://anordmey.github.io/negatron/analyses/experiment1/negatron-analyses-v1.html).
+Analyses for Experiment 2 can be viewed [here](http://anordmey.github.io/negatron/analyses/experment2/negatron-analyses-v2.html).
 
 **The paper** can be found in the "paper" directory or viewed directly [here](http://anordmey.github.io/negatron/negatron.pdf).  

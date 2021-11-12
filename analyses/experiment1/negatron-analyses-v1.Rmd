@@ -16,7 +16,9 @@ library(grid)
 library(knitr)
 ```
 
-`r opts_chunk$set(cache=TRUE)`
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache=TRUE, warning=FALSE, message=FALSE)
+```
 
 ##Quick Summary
 Analyses for Nordmeyer & Frank, "Negation is only hard to process when it is not relevant or informative". Details about these experiments can be found at https://github.com/anordmey/negatron. 
@@ -36,9 +38,9 @@ Here are the listener data:
 
 The experiments can be viewed here: 
 
-Listener Condition: http://anordmey.github.io/negatron/unpublished/unpublished_experiments/listeners/negatron.html 
+Speakers: http://anordmey.github.io/negatron/experiments/experiment1/speakers/negatron.html
 
-Speaker Condition: http://anordmey.github.io/negatron/unpublished/unpublished_experiments/speakers/negatron.html
+Listeners: http://anordmey.github.io/negatron/experiments/experiment1/listeners/negatron.html
 
 
 
@@ -60,7 +62,7 @@ ci.high <- function(x) {
   quantile(bootstrap(1:length(x),1000,theta,x)$thetastar,.975)}
 
 #Plot style
-plot.style <- plot.style <- theme_bw() + theme(panel.grid.minor=element_blank(), panel.grid.major=element_blank(), legend.position="right", axis.line = element_line(colour="black",size=.5), axis.ticks = element_line(size=.5), axis.title.x = element_text(vjust=-.5), axis.title.y = element_text(angle=90,vjust=0.25))
+plot.style <- theme_bw() + theme(panel.grid.minor=element_blank(), panel.grid.major=element_blank(), legend.position="right", axis.line = element_line(colour="black",size=.5), axis.ticks = element_line(size=.5), axis.title.x = element_text(vjust=-.5), axis.title.y = element_text(angle=90,vjust=0.25))
 ```
 
 ## Speaker condition
@@ -112,7 +114,7 @@ n = `r n.unique(d.speakers$subid)` participants in speaker condition.
 Table of mean probabilities: 
 ```{r speaker_means}
 ##Means by subject
-ms.speakers <- rbind_list(
+ms.speakers <- bind_rows(
   d.speakers %>% 
     group_by(recode.context, trial.type, subid) %>%
     summarise(count = mean(code.cat == "Negation"), code.cat = "Negative"),
@@ -131,7 +133,7 @@ ms.speakers$sentence.type <- factor(ms.speakers$sentence.type, levels=c("Negativ
 kable(ms.speakers, digits = 2)
 ```
 
-Probability of producing a negative sentence on nothing trials (e.g., "no apples" when you see a person with nothing) or a positive sentence on item trials (e.g., "apples" when you see a person with apples); compare to Figure 2 in paper:
+Probability of producing a negative sentence on nothing trials (e.g., "no apples" when you see a person with nothing) or a positive sentence on item trials (e.g., "apples" when you see a person with apples):
 
 ```{r speaker_probs}
 qplot(context, m, group = sentence.type,
@@ -142,12 +144,13 @@ qplot(context, m, group = sentence.type,
                       (sentence.type == "Positive" & trial.type == "item"))) + 
   ylab("Probability") + 
   xlab("Context Condition") + 
-  scale_colour_grey("Response") + 
-  #xlim(c(0,1)) +
-  plot.style
+  scale_colour_grey(guide=FALSE) + 
+  annotate("text", x=3.5, y=.85, label="True Positive", color="grey", size=7) + 
+  annotate("text", x=2.50, y=.25, label="True Negative", color="black", size=7) + 
+  theme_classic(base_size = 25)
 ```
 
-Surprisal (-log(prob)) of producing a negative sentence on nothing trials (e.g., "no apples" when you see a person with nothing) or a positive sentence on item trials (e.g., "apples" when you see a person with apples); compare to Figure 3 in paper. 
+Surprisal (-log(prob)) of producing a negative sentence on nothing trials (e.g., "no apples" when you see a person with nothing) or a positive sentence on item trials (e.g., "apples" when you see a person with apples). 
 
 ```{r speaker_surprisal}
 qplot(context, -log(m), group = sentence.type,
@@ -158,9 +161,10 @@ qplot(context, -log(m), group = sentence.type,
                       (sentence.type == "Positive" & trial.type == "item"))) + 
   ylab("Speaker Surprisal") + 
   xlab("Context Condition") + 
-  scale_colour_grey("Response") + 
-  #xlim(c(0,1)) +
-  plot.style
+  scale_colour_grey(guide=FALSE) + 
+  annotate("text", x=1.75, y=.40, label="True Positive", color="grey", size=7) + 
+  annotate("text", x=2, y=4, label="True Negative", color="black", size=7) + 
+  theme_classic(base_size = 25)
 ```
 
 ### Speaker Models
@@ -295,7 +299,7 @@ ms.listeners$sentence.type <- factor(ms.listeners$sentence.type, levels = c("Neg
 kable(ms.listeners, digits = 2)
 ```
 
-Plot reaction time; compare to Figure 4 in paper: 
+Plot reaction time: 
 
 ```{r listener_rts, fig.width=12, fig.height=6} 
 #quartz()
@@ -307,8 +311,8 @@ ggplot(data = subset(ms.listeners), aes(colour = sentence.type, y = rt, x = cont
   facet_wrap(~truth.value) +
   scale_y_continuous(name = "RT (ms)", breaks = seq(1000, 2000, 100)) + 
   xlab("Context Condition") + 
-  scale_colour_grey("Sentence Type") + 
-  plot.style
+  scale_colour_grey(guide=FALSE) + 
+  theme_classic(base_size = 30)
 ```
 
 ### Listener Models 
@@ -358,7 +362,7 @@ kable(summary(model3)$coefficients, digits = 2)
 Only look at true sentences: 
 
 ```{r filter_true}
-ms.listeners <- ms.listeners[ms.listeners$truth.value == TRUE,]
+ms.listeners <- ms.listeners[ms.listeners$truth.value == "True",]
 ms.listeners <- ms.listeners[,c("context","sentence.type","rt","rt.cih","rt.cil")]
 
 ms.speakers <- subset(ms.speakers, (sentence.type == "Negative" & trial.type == "nothing") | (sentence.type == "Positive" & trial.type == "item"))
@@ -389,7 +393,7 @@ data.trimmed <- subset(data.ms, context != "0/4")
 cor.test(data.trimmed$rt, data.trimmed$surprisal)
 ```
 
-Plot correlation; compare to Figure 5 in paper:
+Plot correlation:
 
 ```{r comparison_plot}
 ggplot(data.ms, aes(color=sentence.type, y=rt, x=surprisal)) + 
@@ -399,11 +403,12 @@ ggplot(data.ms, aes(color=sentence.type, y=rt, x=surprisal)) +
   geom_smooth(method="lm", lty="dotted", color="grey60", fill="grey90") + 
   geom_smooth(data=data.trimmed, method="lm", lty="dotted", color="gray10", fill="gray30") + 
   geom_text(aes(label=data.ms$context), hjust=-0.1, vjust=0, size=3) +
-  annotate("text", x=.75, y=1525, label="R^2 == .89", parse=TRUE, color="black", size=3.5) + 
-  annotate("text", x=3.9, y=1725, label="R^2 == .89", parse=TRUE, color="black", size=3.5) + 
+  annotate("text", x=.75, y=1525, label="R^2 == .94", parse=TRUE, color="black", size=3.5) + 
+  annotate("text", x=3.9, y=1725, label="R^2 == .95", parse=TRUE, color="black", size=3.5) + 
   annotate("text", x=.75, y=1150, label="True Positive", color="grey50", size=3.5) + 
   annotate("text", x=2.75, y=1375, label="True Negative", color="black", size=3.5) +  
   ylab("Listener Reaction Time (ms)") +  xlab("Speaker Surprisal") + 
   scale_colour_manual(values=c("black","grey50")) + 
   plot.style
 ```
+

@@ -36,10 +36,9 @@ Here are the listener data:
 ![Listener RTs](listener_rts-1.png)
 The experiments can be viewed here: 
 
-Listener Condition: http://anordmey.github.io/negatron/experiments/listeners/negatron.html 
+Speakers: http://anordmey.github.io/negatron/experiments/experiment2/speakers/negatron.html
 
-Speaker Condition: http://anordmey.github.io/negatron/experiments/speakers/negatron.html
-
+Listeners: http://anordmey.github.io/negatron/experiments/experiment2/listeners/negatron.html
 
 ## Setting up
 
