@@ -6,10 +6,13 @@
 
 Experiment 1a (speakers, identical characters) can be viewed 
 [here](http://anordmey.github.io/negatron/experiments/experiment1/speakers/negatron.html)
+
 Experiment 1b (listeners, identical characters) can be viewed 
 [here](http://anordmey.github.io/negatron/experiments/experiment1/listeners/negatron.html)
+
 Experiment 2a (speakers, varied characters) can be viewed 
 [here](http://anordmey.github.io/negatron/experiments/experiment2/speakers/negatron.html)
+
 Experiment 2b (listeners, varied characters) can be viewed 
 [here](http://anordmey.github.io/negatron/experiments/experiment2/listeners/negatron.html)
 
