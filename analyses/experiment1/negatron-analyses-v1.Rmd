@@ -25,16 +25,13 @@ Analyses for Nordmeyer & Frank, "Negation is only hard to process when it is not
 
 This document describes the analyses and findings for Experiment 1. The "speaker" analyses are Experiment 1a and the "listener" analyses are Experiment 1b. 
 
-Participants were randomly assigned to be either speakers (complete the sentence task; n = 266) or listeners (truth value judgment task; n = 186). Context condition indicates the proportion of characters holding items (e.g., how many of the four boys were holding apples). Context varied within subjects. 
+Participants were randomly assigned to be either speakers or listeners. Context condition indicates the proportion of characters holding items (e.g., how many of the four boys were holding apples). Context varied within subjects. 
 
 This is an example of what a trial looked like:
 ![](trial_v1.png)
 
-Here are the speaker data: 
-![](speaker_surprisal-1.png)
 
-Here are the listener data: 
-![](listener_rts-1.png)
+
 
 The experiments can be viewed here: 
 
@@ -46,7 +43,7 @@ Listeners: http://anordmey.github.io/negatron/experiments/experiment1/listeners/
 
 ## Setting up
 
-Functions and add some style elements for ggplot2.
+Function.
 
 ```{r functions}
 ## number of unique subs
@@ -61,8 +58,6 @@ ci.low <- function(x) {
 ci.high <- function(x) {
   quantile(bootstrap(1:length(x),1000,theta,x)$thetastar,.975)}
 
-#Plot style
-plot.style <- theme_bw() + theme(panel.grid.minor=element_blank(), panel.grid.major=element_blank(), legend.position="right", axis.line = element_line(colour="black",size=.5), axis.ticks = element_line(size=.5), axis.title.x = element_text(vjust=-.5), axis.title.y = element_text(angle=90,vjust=0.25))
 ```
 
 ## Speaker condition
@@ -75,7 +70,13 @@ Load in data:
 ##Load in speaker data
 d.speakers <- read.csv("./data/speakers_long.csv")
 d.speakers$subid <- as.factor(d.speakers$subid)
+
+genders <- d.speakers %>%
+  group_by(gender) %>%
+  summarize(n = n.unique(subid))
 ```
+n = `r n.unique(d.speakers$subid)` participants in speaker condition; n = `r filter(genders, gender == "F")$n` female and n = `r filter(genders, gender == "M")$n`
+male; `r filter(genders, gender == "Decline")$n` participants declined to state their gender.
 
 Recode context. Context was initially coded as # of context characters with target item. Here we recode as total number of characters (including referent) with target items.
 
@@ -108,7 +109,6 @@ d.speakers[d.speakers$coding == "noun",]$code.cat <- "Noun"
 d.speakers$code.cat <- factor(d.speakers$code.cat)
 ```
 
-n = `r n.unique(d.speakers$subid)` participants in speaker condition.
 
 ### Speaker Plots
 Table of mean probabilities: 
@@ -135,36 +135,36 @@ kable(ms.speakers, digits = 2)
 
 Probability of producing a negative sentence on nothing trials (e.g., "no apples" when you see a person with nothing) or a positive sentence on item trials (e.g., "apples" when you see a person with apples):
 
-```{r speaker_probs}
-qplot(context, m, group = sentence.type,
-      ymin = m.cil, ymax = m.cih,
-      col = sentence.type,
-      geom = c("line","linerange"),
-      data = subset(ms.speakers, (sentence.type == "Negative" & trial.type == "nothing") |
-                      (sentence.type == "Positive" & trial.type == "item"))) + 
+```{r speaker_probs, fig.height = 4, fig.width = 6}
+ggplot(data = subset(ms.speakers, 
+                     (sentence.type == "Negative" & trial.type == "nothing") |
+                       (sentence.type == "Positive" & trial.type == "item")),
+       aes(color=sentence.type, y=m, x=context)) +
+  geom_line(aes(group = sentence.type), size = 1) +
+  geom_linerange(aes(ymin = m.cil, ymax = m.cih), size = 1) +
   ylab("Probability") + 
   xlab("Context Condition") + 
   scale_colour_grey(guide=FALSE) + 
-  annotate("text", x=3.5, y=.85, label="True Positive", color="grey", size=7) + 
-  annotate("text", x=2.50, y=.25, label="True Negative", color="black", size=7) + 
-  theme_classic(base_size = 25)
+  annotate("text", x=3.5, y=.9, label="True Positive", color="grey", size=5) + 
+  annotate("text", x=3, y=.4, label="True Negative", color="black", size=5) + 
+  theme_classic(base_size = 18)
 ```
 
 Surprisal (-log(prob)) of producing a negative sentence on nothing trials (e.g., "no apples" when you see a person with nothing) or a positive sentence on item trials (e.g., "apples" when you see a person with apples). 
 
-```{r speaker_surprisal}
-qplot(context, -log(m), group = sentence.type,
-      ymin = -log(m.cil), ymax = -log(m.cih),
-      col = sentence.type,
-      geom = c("line","linerange"),
-      data = subset(ms.speakers, (sentence.type == "Negative" & trial.type == "nothing") |
-                      (sentence.type == "Positive" & trial.type == "item"))) + 
+```{r speaker_surprisal, fig.height = 4, fig.width = 6}
+ggplot(data = subset(ms.speakers, 
+                     (sentence.type == "Negative" & trial.type == "nothing") |
+                      (sentence.type == "Positive" & trial.type == "item")),
+       aes(color = sentence.type, y = -log(m), x = context)) +
+  geom_line(aes(group = sentence.type), size = 1) +
+  geom_linerange(aes(ymin = -log(m.cil), ymax = -log(m.cih)), size = 1) +
   ylab("Speaker Surprisal") + 
   xlab("Context Condition") + 
   scale_colour_grey(guide=FALSE) + 
-  annotate("text", x=1.75, y=.40, label="True Positive", color="grey", size=7) + 
-  annotate("text", x=2, y=4, label="True Negative", color="black", size=7) + 
-  theme_classic(base_size = 25)
+  annotate("text", x=2.5, y=.3, label="True Positive", color="grey", size=5) + 
+  annotate("text", x=1.75, y=3.75, label="True Negative", color="black", size=5) + 
+  theme_classic(base_size = 18)
 ```
 
 ### Speaker Models
@@ -183,6 +183,13 @@ Look at effect of context on probability of producing a negative sentence on a n
 ```{r speaker_truenegs}
 d.speakers$negation <- 0
 d.speakers[d.speakers$code.cat == "Negation",]$negation <- 1
+
+#model presented in original submission
+model.neg <- glmer(negation ~ numeric.context * trial.type + dummy.context 
+                   + (1 | subid) 
+                   + (1 | item), 
+                   data = d.speakers, family = "binomial")
+kable(summary(model.neg)$coefficients, digits = 2)
 
 #Random slopes model does not converge
 model.neg.nothing <- glmer(negation ~ dummy.context + numeric.context
@@ -223,7 +230,13 @@ d.listeners$truth.value <- as.factor(as.logical(d.listeners$truth.value))
 
 d.listeners$text.condition <- factor(d.listeners$text.condition,levels=c("positive","negative"), labels=c("Positive","Negative"))
 d.listeners$response <- factor(d.listeners$response,levels=c("TRUE","FALSE"))
+
+l.genders <- d.listeners %>%
+  group_by(gender) %>%
+  summarize(n = n.unique(subid))
 ```
+n = `r n.unique(d.listeners$subid)` participants in listener condition; n = `r filter(l.genders, gender == "F")$n` female and n = `r filter(l.genders, gender == "M")$n`male; n = `r filter(l.genders, gender == "Decline")$n` participant declined to state their gender.
+
 
 Recode context. Context was initially coded as # of context characters with target item. Here we recode as total number of characters (including referent) with target items.
 
@@ -260,6 +273,7 @@ for (i in reject$subid) {
 	d.listeners<-d.listeners[d.listeners$subid != i,]
 }
 ```
+`r nrow(reject)` participants were removed for having less than 80% accuracy on the task, leaving n = `r n.unique(d.listeners$subid)` participants for analysis. 
 
 Remove incorrect trials & trim outliers.
 
@@ -279,10 +293,8 @@ qplot(data=d.listeners.ct, x=rt, geom = "histogram")
 qplot(data=d.listeners.ct, x=log.rt, geom = "histogram")
 ```
 
-n = `r n.unique(d.listeners$subid)` participants in listener condition.
-
 ### Listener Plots
-Table of mean probabilities: 
+Table of mean RTs: 
 
 ```{r listener_means}
 ms.listeners <- d.listeners.ct %>%
@@ -295,24 +307,46 @@ ms.listeners <- d.listeners.ct %>%
 
 names(ms.listeners) <- c("sentence.type","context","truth.value","rt.cih","rt.cil","rt")
 ms.listeners$sentence.type <- factor(ms.listeners$sentence.type, levels = c("Negative", "Positive"))
+ms.listeners$truth.value <- factor(ms.listeners$truth.value, levels = c(TRUE, FALSE), labels = c("True", "False"))
 
 kable(ms.listeners, digits = 2)
 ```
 
 Plot reaction time: 
 
-```{r listener_rts, fig.width=12, fig.height=6} 
+```{r listener_rts, fig.height=4, fig.width = 8} 
 #quartz()
-ms.listeners$truth.value <- factor(ms.listeners$truth.value, levels = c(TRUE, FALSE), labels = c("True", "False"))
 
-ggplot(data = subset(ms.listeners), aes(colour = sentence.type, y = rt, x = context)) +
+facet_labels <- c(
+  'True' = 'True Sentences', 
+  'False' = 'False Sentences'
+)
+
+p <- ggplot(data = ms.listeners, aes(colour = sentence.type, y = rt, x = context)) +
   geom_line(aes(group = sentence.type), size = 1) +
   geom_errorbar(aes(ymin = rt.cil, ymax = rt.cih), width = 0, size = 1) +
-  facet_wrap(~truth.value) +
+  facet_wrap(~truth.value, labeller = as_labeller(facet_labels)) +
   scale_y_continuous(name = "RT (ms)", breaks = seq(1000, 2000, 100)) + 
   xlab("Context Condition") + 
-  scale_colour_grey(guide=FALSE) + 
-  theme_classic(base_size = 30)
+  scale_colour_grey(guide= "none") + 
+  theme_classic(base_size = 18) + 
+  theme(strip.background = element_blank())
+
+text_df <- data.frame(label = c("Negative", "Positive", "", ""),
+                      x = c(2, 1.3, "", ""),
+                      y = c(1700, 1200, "", ""),
+                       truth.value =  c("True", "True", "False", "False"), 
+                       sentence.type = c("Negative", "Positive", "Negative", "Positive"))
+text_df$sentence.type <- factor(text_df$sentence.type, levels = c("Negative", "Positive"))
+text_df$truth.value <- factor(text_df$truth.value, levels = c("True", "False"))
+text_df$x <- as.numeric(text_df$x)
+text_df$y <- as.numeric(text_df$y)
+
+p + geom_text(
+  data = text_df, 
+  mapping = aes(x = x, y = y, label = label), 
+  size = 5
+)
 ```
 
 ### Listener Models 
@@ -327,7 +361,7 @@ d.listeners.ct$dummy.context <- 0
 d.listeners.ct[d.listeners.ct$recode.context == "0/4",]$dummy.context <- 1
 ```
 
-Look at interaction between context, sentence type, and truth value; compare to Table 1 in paper.
+Look at interaction between context, sentence type, and truth value.
 
 ```{r listener_model1}
 model1 <- lmer(rt ~ text.condition*truth.value*numeric.context 
@@ -396,19 +430,43 @@ cor.test(data.trimmed$rt, data.trimmed$surprisal)
 Plot correlation:
 
 ```{r comparison_plot}
-ggplot(data.ms, aes(color=sentence.type, y=rt, x=surprisal)) + 
+mainplot <- ggplot(data.ms, aes(color=sentence.type, y=rt, x=surprisal)) + 
   geom_pointrange(aes(ymin=rt.cil, ymax=rt.cih), size=.1) + 
   geom_errorbarh(aes(xmin=surprisal.cil, xmax=surprisal.cih), size=.1) + 	
   geom_point(aes(color=sentence.type)) + 
-  geom_smooth(method="lm", lty="dotted", color="grey60", fill="grey90") + 
-  geom_smooth(data=data.trimmed, method="lm", lty="dotted", color="gray10", fill="gray30") + 
-  geom_text(aes(label=data.ms$context), hjust=-0.1, vjust=0, size=3) +
-  annotate("text", x=.75, y=1525, label="R^2 == .94", parse=TRUE, color="black", size=3.5) + 
-  annotate("text", x=3.9, y=1725, label="R^2 == .95", parse=TRUE, color="black", size=3.5) + 
-  annotate("text", x=.75, y=1150, label="True Positive", color="grey50", size=3.5) + 
-  annotate("text", x=2.75, y=1375, label="True Negative", color="black", size=3.5) +  
+  geom_smooth(method="lm", lty="dotted", color="grey60", fill="grey") + 
+  #geom_smooth(data=data.trimmed, method="lm", lty="dotted", color="gray10", fill="gray30") + 
+  geom_text(aes(label=data.ms$context), hjust=-0.1, vjust=0, size=4.5) +
+  #annotate("text", x=.75, y=1525, label="R^2 == .71", parse=TRUE, color="black", size=3.5) + 
+  annotate("text", x=2.75, y=1750, label="R^2 == .93", parse=TRUE, color="black", size=5) + 
+  annotate("text", x=.85, y=1200, label="True Positive", color="grey50", size=5) + 
+  annotate("text", x=1.3, y=1500, label="True Negative", color="black", size=5) +  
   ylab("Listener Reaction Time (ms)") +  xlab("Speaker Surprisal") + 
-  scale_colour_manual(values=c("black","grey50")) + 
-  plot.style
-```
+  scale_colour_manual(values=c("black","grey50"), guide=FALSE) + 
+  theme_classic(base_size = 18)
 
+subplot <- ggplot(data.trimmed, aes(color=sentence.type, y=rt, x=surprisal)) +
+  geom_pointrange(aes(ymin=rt.cil, ymax=rt.cih), size=.1) + 
+  geom_errorbarh(aes(xmin=surprisal.cil, xmax=surprisal.cih), size=.1) + 	
+  geom_point(aes(color=sentence.type)) + 
+  geom_smooth(method="lm", lty="dotted", color="grey60", fill="grey") + 
+  geom_text(aes(label=data.trimmed$context), hjust=-0.1, vjust=0, size=4) +
+  annotate("text", x=.5, y=1450, label="R^2 == .71", parse=TRUE, color="black", size=4) + 
+  #annotate("text", x=.75, y=1200, label="True Positive", color="grey50", size=3.5) + 
+  #annotate("text", x=2, y=1300, label="True Negative", color="black", size=3.5) +  
+  ylab("") +  xlab("") + 
+  scale_colour_manual(values=c("black","grey50"), guide=FALSE) + 
+  theme(panel.border = element_rect(fill = NA),
+        panel.background = element_rect(fill = NA), 
+        plot.background = element_rect(fill = NA, color = NA), 
+        plot.margin = margin(0, 0, 0, 0))
+
+vp <- viewport(width = 0.4, height = 0.4, x = .8, y = .35)
+
+fullplot <- function() {
+  print(mainplot)
+  print(subplot, vp = vp)
+ }
+
+fullplot()
+```
