@@ -461,65 +461,12 @@ kable(ms.speakers, digits = 2)</code></pre>
 d.speakers[d.speakers$recode.context == &quot;0/4&quot;,]$dummy.context &lt;- 1
 
 d.speakers$numeric.context &lt;- as.numeric(as.character(factor(d.speakers$recode.context, levels=c(&quot;0/4&quot;,&quot;1/4&quot;,&quot;2/4&quot;,&quot;3/4&quot;,&quot;4/4&quot;), labels=c(0, .25, .5, .75, 1))))</code></pre>
-<p>Look at effect of context on probability of producing a negative sentence on a nothing trial (e.g. probability of producing true negative sentence):</p>
+<p>Separate analyses of true negs and true pos. Look at effect of context on probability of producing a negative sentence on a nothing trial (e.g. probability of producing true negative sentence):</p>
 <pre class="r"><code>d.speakers$negation &lt;- 0
 d.speakers[d.speakers$code.cat == &quot;Negation&quot;,]$negation &lt;- 1
 
-#model presented in original submission
-model.neg &lt;- glmer(negation ~ numeric.context * trial.type + dummy.context 
-                   + (1 | subid) 
-                   + (1 | item), 
-                   data = d.speakers, family = &quot;binomial&quot;)
-kable(summary(model.neg)$coefficients, digits = 2)</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th align="left"></th>
-<th align="right">Estimate</th>
-<th align="right">Std. Error</th>
-<th align="right">z value</th>
-<th align="right">Pr(&gt;|z|)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">-7.96</td>
-<td align="right">0.66</td>
-<td align="right">-12.02</td>
-<td align="right">0.00</td>
-</tr>
-<tr class="even">
-<td align="left">numeric.context</td>
-<td align="right">0.32</td>
-<td align="right">0.88</td>
-<td align="right">0.36</td>
-<td align="right">0.72</td>
-</tr>
-<tr class="odd">
-<td align="left">trial.typenothing</td>
-<td align="right">6.76</td>
-<td align="right">0.65</td>
-<td align="right">10.35</td>
-<td align="right">0.00</td>
-</tr>
-<tr class="even">
-<td align="left">dummy.context</td>
-<td align="right">-4.63</td>
-<td align="right">0.28</td>
-<td align="right">-16.80</td>
-<td align="right">0.00</td>
-</tr>
-<tr class="odd">
-<td align="left">numeric.context:trial.typenothing</td>
-<td align="right">1.96</td>
-<td align="right">0.92</td>
-<td align="right">2.14</td>
-<td align="right">0.03</td>
-</tr>
-</tbody>
-</table>
-<pre class="r"><code>#Random slopes model does not converge
+#Random slopes model does not converge
+#model with dummy context
 model.neg.nothing &lt;- glmer(negation ~ dummy.context + numeric.context
                 + (1 | subid)
                 + (1 | item),
@@ -559,6 +506,52 @@ kable(summary(model.neg.nothing)$coefficients, digits = 2)</code></pre>
 </tr>
 </tbody>
 </table>
+<pre class="r"><code>#model without dummy context
+model.neg.nothing_nodummy &lt;- glmer(negation ~ numeric.context
+                + (1 | subid)
+                + (1 | item),
+                data=filter(d.speakers, trial.type == &quot;nothing&quot;), family = &quot;binomial&quot;)
+kable(summary(model.neg.nothing_nodummy)$coefficients, digits = 2)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Estimate</th>
+<th align="right">Std. Error</th>
+<th align="right">z value</th>
+<th align="right">Pr(&gt;|z|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">-3.20</td>
+<td align="right">0.18</td>
+<td align="right">-17.42</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">numeric.context</td>
+<td align="right">5.59</td>
+<td align="right">0.21</td>
+<td align="right">26.81</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>anova(model.neg.nothing_nodummy, model.neg.nothing)</code></pre>
+<pre><code>## Data: filter(d.speakers, trial.type == &quot;nothing&quot;)
+## Models:
+## model.neg.nothing_nodummy: negation ~ numeric.context + (1 | subid) + (1 | item)
+## model.neg.nothing: negation ~ dummy.context + numeric.context + (1 | subid) + (1 | item)
+##                           npar    AIC    BIC  logLik deviance  Chisq Df
+## model.neg.nothing_nodummy    4 3963.5 3989.1 -1977.7   3955.5          
+## model.neg.nothing            5 3477.8 3509.9 -1733.9   3467.8 487.63  1
+##                           Pr(&gt;Chisq)    
+## model.neg.nothing_nodummy               
+## model.neg.nothing          &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Look at effect of context on probability of producing a positive sentence about the target item (i.e. “apples”) on item trials.</p>
 <pre class="r"><code>#Random slopes model does not converge
 d.speakers$noun &lt;- 0

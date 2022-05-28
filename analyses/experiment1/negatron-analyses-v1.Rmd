@@ -178,25 +178,28 @@ d.speakers[d.speakers$recode.context == "0/4",]$dummy.context <- 1
 d.speakers$numeric.context <- as.numeric(as.character(factor(d.speakers$recode.context, levels=c("0/4","1/4","2/4","3/4","4/4"), labels=c(0, .25, .5, .75, 1))))
 ```
 
-Look at effect of context on probability of producing a negative sentence on a nothing trial (e.g. probability of producing true negative sentence):
+Separate analyses of true negs and true pos. Look at effect of context on probability of producing a negative sentence on a nothing trial (e.g. probability of producing true negative sentence):
 
 ```{r speaker_truenegs}
 d.speakers$negation <- 0
 d.speakers[d.speakers$code.cat == "Negation",]$negation <- 1
 
-#model presented in original submission
-model.neg <- glmer(negation ~ numeric.context * trial.type + dummy.context 
-                   + (1 | subid) 
-                   + (1 | item), 
-                   data = d.speakers, family = "binomial")
-kable(summary(model.neg)$coefficients, digits = 2)
-
 #Random slopes model does not converge
+#model with dummy context
 model.neg.nothing <- glmer(negation ~ dummy.context + numeric.context
                 + (1 | subid)
                 + (1 | item),
                 data=filter(d.speakers, trial.type == "nothing"), family = "binomial")
 kable(summary(model.neg.nothing)$coefficients, digits = 2)
+
+#model without dummy context
+model.neg.nothing_nodummy <- glmer(negation ~ numeric.context
+                + (1 | subid)
+                + (1 | item),
+                data=filter(d.speakers, trial.type == "nothing"), family = "binomial")
+kable(summary(model.neg.nothing_nodummy)$coefficients, digits = 2)
+
+anova(model.neg.nothing_nodummy, model.neg.nothing)
 ```
 
 Look at effect of context on probability of producing a positive sentence about the target item (i.e. "apples") on item trials. 
@@ -470,3 +473,4 @@ fullplot <- function() {
 
 fullplot()
 ```
+

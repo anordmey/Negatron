@@ -140,10 +140,10 @@ ggplot(data = subset(ms.speakers,
   geom_line(aes(group = sentence.type), size = 1) +
   geom_linerange(aes(ymin = m.cil, ymax = m.cih), size = 1) +
   ylab("Probability") + 
-  xlab("Context Condition") + 
-  scale_colour_grey(guide=FALSE) + 
+  xlab("Context Condition") +
+  scale_colour_grey(guide=FALSE) +
   annotate("text", x=3.5, y=.75, label="True Positive", color="grey", size=5) + 
-  annotate("text", x=1.75, y=.25, label="True Negative", color="black", size=5) + 
+  annotate("text", x=1.75, y=.25, label="True Negative", color="black", size=5)  +
   theme_classic(base_size = 18)
 ```
 
@@ -175,18 +175,28 @@ d.speakers[d.speakers$recode.context == "0/4",]$dummy.context <- 1
 d.speakers$numeric.context <- as.numeric(as.character(factor(d.speakers$recode.context, levels=c("0/4","1/4","2/4","3/4","4/4"), labels=c(0, .25, .5, .75, 1))))
 ```
 
-Look at effect of context on probability of producing a negative sentence on a nothing trial (e.g. probability of producing true negative sentence):
+Separate analyses of true negs and true pos. Look at effect of context on probability of producing a negative sentence on a nothing trial (e.g. probability of producing true negative sentence):
 
 ```{r speaker_truenegs}
 d.speakers$negation <- 0
 d.speakers[d.speakers$code.cat == "Negation",]$negation <- 1
 
 #Random slopes model does not converge
+#model with dummy context
 model.neg.nothing <- glmer(negation ~ dummy.context + numeric.context
                 + (1 | subid)
                 + (1 | item),
                 data=filter(d.speakers, trial.type == "nothing"), family = "binomial")
 kable(summary(model.neg.nothing)$coefficients, digits = 2)
+
+#model without dummy context
+model.neg.nothing_nodummy <- glmer(negation ~ numeric.context
+                + (1 | subid)
+                + (1 | item),
+                data=filter(d.speakers, trial.type == "nothing"), family = "binomial")
+kable(summary(model.neg.nothing_nodummy)$coefficients, digits = 2)
+
+anova(model.neg.nothing_nodummy, model.neg.nothing)
 ```
 
 Look at effect of context on probability of producing a positive sentence about the target item (i.e. "apples") on item trials. 
@@ -464,12 +474,12 @@ fullplot()
 
 ## Follow up analysis: 0/4 speaker context
 
-What are people talking about in the 0/4 context? This is addressed in the General Discussion of the paper.
+What are people talking about in the 0/4 context? Follow-up analysis in Experiment 2a. 
 
 ```{r nothing_context, fig.width=8, fig.height=6}
 d.speakers$code.cat2 <- "Other"
 d.speakers[d.speakers$coding == "noun",]$code.cat2 <- "has [target item]"
-d.speakers[d.speakers$coding == "no",]$code.cat2 <- "has no [target item]"
+d.speakers[d.speakers$coding == "no",]$code.cat2 <- "Negation (has no [target item])"
 d.speakers[d.speakers$coding == "not",]$code.cat2 <- "Negation (other)"
 d.speakers[d.speakers$coding == "without",]$code.cat2 <- "Negation (other)"
 d.speakers[d.speakers$coding == "zero",]$code.cat2 <- "Negation (other)"
@@ -478,37 +488,31 @@ d.speakers[d.speakers$coding == "color",]$code.cat2 <- "Color"
 d.speakers$code.cat2 <- factor(d.speakers$code.cat2)
 
 d.speakers_coding <- d.speakers %>%
-  group_by(recode.context, code.cat2) %>%
+  group_by(recode.context, trial.type, code.cat2) %>%
   summarize(n = n()) %>%
-  mutate(freq = n / sum(n))
+  mutate(freq = n / sum(n), 
+         trial.type = factor(trial.type, levels = c("item", "nothing"), labels = c("Referent has item", "Referent has nothing")))
 
 ggplot(d.speakers_coding, aes(x = recode.context, y = freq, fill = code.cat2)) +
+  facet_wrap( ~ trial.type) +
   geom_bar(stat = "identity") +
   labs(x = "Context", y = "Frequency", fill = "Response Type") +
   theme_classic(base_size = 18)
 
 #Did speakers refer to color at all? This only slightly changes the proportions (e.g. a few participants are describing color AND negation e.g. "has a red shirt and no apples")
 d.speakers_color <- d.speakers %>%
-  group_by(recode.context, color) %>%
+  group_by(recode.context, trial.type, color) %>%
   summarize(n = n()) %>%
   mutate(freq = n / sum(n), 
-         color = factor(color, levels = c(1, 0), labels = c("described color", "did not describe color")))
+         color = factor(color, levels = c(1, 0), labels = c("described color", "did not describe color")), 
+         trial.type = factor(trial.type, levels = c("item", "nothing"), labels = c("Referent has item", "Referent has nothing")))
 
 ggplot(d.speakers_color, aes(x = recode.context, y = freq, fill = color)) +
   geom_bar(stat = "identity") +
+  facet_wrap(~ trial.type) +
   labs(x = "Context", y = "Frequency", fill = "Response Type") +
   theme_classic(base_size = 18)
 
-#proportion of trials that refer to color, by speaker
-d.speakers_ind <- d.speakers %>% 
-  group_by(subid, color) %>%
-  summarize(n = n()) %>%
-  mutate(freq = n / sum(n)) %>%
-  filter(color == 1)
-
-ggplot(d.speakers_ind, aes(x = reorder(subid, -freq), y = freq)) + 
-  geom_col()
-
-max(d.speakers_ind$freq)
-min(d.speakers_ind$freq)
+kable(d.speakers_coding)
+kable(d.speakers_color)
 ```
