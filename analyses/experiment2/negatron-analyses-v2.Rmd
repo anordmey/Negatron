@@ -13,6 +13,7 @@ library(lme4)
 library(bootstrap)
 library(grid)
 library(knitr)
+library(viridis)
 ```
 
 ```{r setup, include=FALSE}
@@ -497,7 +498,8 @@ ggplot(d.speakers_coding, aes(x = recode.context, y = freq, fill = code.cat2)) +
   facet_wrap( ~ trial.type) +
   geom_bar(stat = "identity") +
   labs(x = "Context", y = "Frequency", fill = "Response Type") +
-  theme_classic(base_size = 18)
+  scale_fill_viridis(discrete = T) +
+  theme_classic(base_size = 16)
 
 #Did speakers refer to color at all? This only slightly changes the proportions (e.g. a few participants are describing color AND negation e.g. "has a red shirt and no apples")
 d.speakers_color <- d.speakers %>%
