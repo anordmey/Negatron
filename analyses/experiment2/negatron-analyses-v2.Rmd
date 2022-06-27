@@ -477,7 +477,7 @@ fullplot()
 
 What are people talking about in the 0/4 context? Follow-up analysis in Experiment 2a. 
 
-```{r nothing_context, fig.width=8, fig.height=6}
+```{r nothing_context, fig.width=8, fig.height=3}
 d.speakers$code.cat2 <- "Other"
 d.speakers[d.speakers$coding == "noun",]$code.cat2 <- "has [target item]"
 d.speakers[d.speakers$coding == "no",]$code.cat2 <- "Negation (has no [target item])"
